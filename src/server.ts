@@ -1,14 +1,9 @@
-import type {User} from '@dto/user';
-import express from 'express';
+import {io} from 'socket.io-client';
 
-const app = express();
+const socket = io('ws://localhost:3333');
 
-app.get('/', (req, res) => {
-	const user: User = {
-		name: 'sergio',
-	};
-
-	return res.json(user);
+socket.on('hello', args => {
+	console.log(args);
 });
 
-app.listen(3333);
+socket.emit('howdy', 'stranger');
